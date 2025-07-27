@@ -50,17 +50,21 @@ export const Chat = () => {
                <div className="mx-2.5 text-md">Users: 1/2</div>
             </div>
             <div className="flex justify-center items-center">
-               <div className="w-full border border-gray-700 h-96 mt-5 rounded-md mx-2 p-2 flex justify-end">
-                  <div className="mt-2 flex flex-col gap-2">
-                     {userMessages.map((message) => (
-                        <span className="bg-white px-3 py-2 text-black rounded font-semibold">
+               <div className="w-full border border-gray-700 h-96 mt-5 rounded-md mx-2 p-2 overflow-y-auto">
+                  <div className="mt-2 flex flex-col gap-2 justify-end">
+                     {userMessages.map((message, index) => (
+                        <span
+                           key={`user-${index}`}
+                           className="self-end bg-blue-500 text-white px-3 py-2 rounded font-semibold max-w-[70%] break-words"
+                        >
                            {message}
                         </span>
                      ))}
-                  </div>
-                  <div className="mt-2 flex flex-col gap-2">
-                     {receivedMessages.map((message) => (
-                        <span className="bg-white px-3 py-2 text-black rounded font-semibold">
+                     {receivedMessages.map((message, index) => (
+                        <span
+                           key={`received-${index}`}
+                           className="self-start bg-gray-200 text-black px-3 py-2 rounded font-semibold max-w-[70%] break-words"
+                        >
                            {message}
                         </span>
                      ))}

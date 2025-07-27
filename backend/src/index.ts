@@ -30,8 +30,8 @@ wss.on('connection', function (socket) {
             (x) => x.socket == socket
          )?.roomId
 
-         allSockets.map((x) => {
-            if (currentUserRoom == x.roomId) {
+         allSockets.forEach((x) => {
+            if (x.roomId === currentUserRoom && x.socket !== socket) {
                x.socket.send(parsedMessage.payload.message)
             }
          })
