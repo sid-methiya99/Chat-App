@@ -1,0 +1,4 @@
+- [] Create a chat app interface pretty one 
+- [] Refer this UI https://real-time-chat-liard.vercel.app/
+- [] Also change backend for it
+- [] Refer screenshoot for UI reference
