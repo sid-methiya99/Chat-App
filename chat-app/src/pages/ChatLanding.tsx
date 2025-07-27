@@ -1,20 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { roomId } from '../utils/generateRoomId'
 import { Header } from '../components/Header'
 import { useNavigate } from 'react-router-dom'
+import { useWebSocket } from '../components/WebSocketContext'
 
 export const ChatLanding = () => {
    const [createRoom, setCreateRoom] = useState(false)
    const roomRef = useRef<HTMLInputElement>(null)
    const navigate = useNavigate()
-   const wsRef = useRef<WebSocket>(null)
+   const socket = useWebSocket()
 
-   useEffect(() => {
-      const ws = new WebSocket('http://localhost:8080')
-      wsRef.current = ws
-   }, [])
    const handleRoomJoin = () => {
       const enteredRoomId = roomRef.current?.value
       if (!enteredRoomId) {
@@ -24,7 +21,8 @@ export const ChatLanding = () => {
       }
 
       localStorage.setItem('roomId', enteredRoomId || '')
-      wsRef.current?.send(
+      console.log(socket)
+      socket?.send(
          JSON.stringify({
             type: 'join',
             payload: {
