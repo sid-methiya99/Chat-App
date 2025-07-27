@@ -1,49 +1,65 @@
+import { useRef, useState } from 'react'
 import { Button } from '../components/Button'
-import ChatIcon from '../components/icons/ChatIcon'
 import { Input } from '../components/Input'
+import { roomId } from '../utils/generateRoomId'
+import { Header } from '../components/Header'
+import { useNavigate } from 'react-router-dom'
 
 export const ChatLanding = () => {
+   const [createRoom, setCreateRoom] = useState(false)
+   const roomRef = useRef<HTMLInputElement>(null)
+   const navigate = useNavigate()
+
+   const handleRoomJoin = () => {
+      const enteredRoomId = roomRef.current?.value
+      if (!enteredRoomId) {
+         alert('Please enter room Id')
+      } else if (enteredRoomId.length < 6) {
+         alert('Please enter correct room Id with 6 digits')
+      }
+
+      localStorage.setItem('roomId', enteredRoomId || '')
+      navigate('/chat')
+   }
    return (
       <div className="border border-gray-700 w-2xl p-5 rounded-xl shadow-md">
          <div className="flex flex-col">
-            <div className="flex px-2 gap-2 items-center">
-               <ChatIcon />
-               <p
-                  className="text-2xl text-white font-extrabold "
-                  style={{
-                     wordSpacing: '0.50rem',
-                  }}
-               >
-                  Real Time Chat
-               </p>
-            </div>
-            <div className="pl-3 mt-1">
-               <p
-                  className="text-zinc-400 font-semibold text-base"
-                  style={{
-                     wordSpacing: '0.30rem',
-                  }}
-               >
-                  temporary room that expires after all users exits
-               </p>
-            </div>
+            <Header />
          </div>
 
          <div className="mt-5 px-2">
-            <Button title="Create New Room" variant="large" />
+            <Button
+               title="Create New Room"
+               variant="large"
+               onClick={() => {
+                  setCreateRoom(true)
+               }}
+            />
          </div>
 
-         <div className="mt-4 px-2">
-            <Input placeholder="Enter your name" />
-         </div>
          <div className="mt-3 px-2 flex gap-4">
             <div className="w-3/4">
-               <Input placeholder="Enter Room Code" />
+               <Input placeholder="Enter Room Code" reference={roomRef} />
             </div>
             <div>
-               <Button title="Join Room" variant="small" />
+               <Button
+                  title="Join Room"
+                  variant="small"
+                  onClick={handleRoomJoin}
+               />
             </div>
          </div>
+
+         {createRoom && (
+            <div className="mt-3 flex py-7 bg-[#272726] rounded mx-2">
+               <div className="flex flex-col justify-center items-center w-full gap-2 ">
+                  <h1 className="text-gray-300 font-bold">
+                     Share this code with your friend
+                  </h1>
+                  <h1 className="text-xl font-extrabold">{roomId}</h1>
+               </div>
+            </div>
+         )}
       </div>
    )
 }
