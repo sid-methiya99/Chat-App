@@ -4,7 +4,7 @@ import { Chat } from './pages/Chat'
 
 function App() {
    return (
-      <div className="flex h-screen text-white bg-black w-full items-center justify-center">
+      <div className="bg-black">
          <BrowserRouter>
             <Routes>
                <Route path="/" element={<ChatLanding />} />
