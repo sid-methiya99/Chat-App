@@ -2,16 +2,28 @@ import { Button } from '../components/Button'
 import ChatIcon from '../components/icons/ChatIcon'
 import { Input } from '../components/Input'
 
-export const ChatLanding = (props: {}) => {
+export const ChatLanding = () => {
    return (
       <div className="border border-gray-700 w-2xl p-5 rounded-xl shadow-md">
          <div className="flex flex-col">
             <div className="flex px-2 gap-2 items-center">
                <ChatIcon />
-               <h1 className="text-2xl text-white font-bold">Real Time Chat</h1>
+               <p
+                  className="text-2xl text-white font-extrabold "
+                  style={{
+                     wordSpacing: '0.50rem',
+                  }}
+               >
+                  Real Time Chat
+               </p>
             </div>
             <div className="pl-3 mt-1">
-               <p className="text-zinc-100 font-light tracking-widest">
+               <p
+                  className="text-zinc-400 font-semibold text-base"
+                  style={{
+                     wordSpacing: '0.30rem',
+                  }}
+               >
                   temporary room that expires after all users exits
                </p>
             </div>
