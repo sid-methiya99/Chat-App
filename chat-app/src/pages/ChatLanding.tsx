@@ -21,7 +21,6 @@ export const ChatLanding = () => {
       }
 
       localStorage.setItem('roomId', enteredRoomId || '')
-      console.log(socket)
       socket?.send(
          JSON.stringify({
             type: 'join',
